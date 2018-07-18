@@ -188,3 +188,20 @@ img:after {
   padding: 5px;
   margin: 0 auto;
 }
+
+.column {
+    float: left;
+    width: 50%;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.column h4 {
+  text-align: left;
+  margin-left: 25%;
+  width: 75%;
+}
