@@ -1,42 +1,90 @@
 <html>
 	<head>
 		<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.1.1.min.js"></script>
+    	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
 	    <script>
-	             $(function(){
-		  var curDown = false,
-		      curYPos = 0,
-		      curXPos = 0;
-		  $(window).mousemove(function(m){
-		    if(curDown === true){
-		     $(window).scrollTop($(window).scrollTop() + (curYPos - m.pageY)); 
-		     $(window).scrollLeft($(window).scrollLeft() + (curXPos - m.pageX));
-		    }
-		  });
+			var curDown = false, curYPos = 0, curXPos = 0;
+			var mA;
+			var posX = 5400;
+			var posY = 2400;
+			$(window).mousemove(function(m){
+			  	mA = m;
+			    if(curDown === true){
+			     $(window).scrollLeft($(window).scrollLeft() + (curXPos - m.pageX));
+			     $(window).scrollTop($(window).scrollTop() + (curYPos - m.pageY)); 
+			     posX = $(window).scrollLeft() + (curXPos - m.pageX);
+			     posY = $(window).scrollTop() + (curYPos - m.pageY);
+			    }
+			});
 
-		  $(window).mousedown(function(m){
-		    curDown = true;
-		    curYPos = m.pageY;
-		    curXPos = m.pageX;
-		  });
+			$(window).mousedown(function(m){
+				mA = m;
+				curDown = true;
+				curYPos = m.pageY;
+				curXPos = m.pageX;
+			  });
 
-		  $(window).mouseup(function(){
-		    curDown = false;
-		  });
-		})
-		 
+			$(window).mouseup(function(){
+			    curDown = false;
+			});
+
+		    var scale = 1;
+		    var scrollPercentageX, scrollPercentageY;
+		    var width = $('#mapImage').width();
+		    var height = $('#mapImage').height();
+
+			function zoom(scaleAmount) {
+				scale += scaleAmount;
+				if (scale > 4) {
+					scale = 4;
+				} else if (scale < 0.2) {
+					scale = 0.2;
+				}
+			    $('#mapImage').css('MozTransform','scale(' + scale + ')');
+			    $('#mapImage').css('transform','scale(' + scale + ')');
+				$(window).scrollLeft(posX);
+				$(window).scrollTop(posY); 
+			}
+
+			function defaultZoom(scaleAmount) {
+				scale = 1;
+			    $('#mapImage').css('MozTransform','scale(1)');
+			    $('#mapImage').css('transform','scale(1)');
+			}
 	    </script>
 		<style>
-			body{
+			body {
 			    -webkit-touch-callout: none;
 			    -webkit-user-select: none;
 			    -khtml-user-select: none;
 			    -moz-user-select: none;
 			    -ms-user-select: none;
 			    user-select: none;
+			    background: black;
+			}
+			.toolbar {
+				position: fixed;
+				top: 10px;
+				right: 10px;
+				background: rgba(0, 0, 0, 0.8);
+				border-radius: 5px;
+				font-size: 36px;
+				padding: 20px;
+				color: white;
+				z-index: 500;
+			}
+			img {
+  				transition: transform 0.2s linear;
+  				transform-origin: 75% 55%;
 			}
 		</style>
 	</head>
 	<body onload="window.scroll(5400, 2400)">
-	  <img src="../images/map.jpg" draggable="false" ondragstart="return false;">
+		<div class="toolbar">
+			<i class="fas fa-search-plus" onclick="zoom(0.1)"></i><br /><br />
+			<i class="fas fa-search-minus" onclick="zoom(-0.1)"></i><br /><br />
+			<i class="fas fa-search" onclick="defaultZoom()"></i>
+		</div>
+		<img src="../images/map.jpg" draggable="false" id="mapImage" ondragstart="return false;">
 	</body>
 </html>
