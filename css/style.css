@@ -19,6 +19,11 @@ footer {
   border-top: 2px solid #222;
 }
 
+iframe {
+  border: 2px solid #222;
+  border-radius: 4px;
+}
+
 h3, h2, h1 {
   color: white;
   text-shadow: 2px 2px 1px #222;
@@ -124,6 +129,12 @@ a:active {
   box-shadow: #111 0px 0px 5px 2px;
 }
 
+.contentDiv:not(#checklistDiv) {
+  height: 75%;
+  position: absolute;
+  width: 95%;
+}
+
 .checklistItem {
   width: 32px;
   height: 24px;
@@ -152,7 +163,13 @@ img:after {
 }
 
 #frontbar {
-  background: #666;
+  background: repeating-linear-gradient(
+  -55deg,
+  #666,
+  #666 10px,
+  #888 10px,
+  #888 20px
+  );
   border-radius: 4px;
   height: 100%;
 }

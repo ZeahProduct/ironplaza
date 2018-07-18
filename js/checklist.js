@@ -8,7 +8,7 @@ function imgError(image) {
 }
 
 function toggle(image) {
-	if (image.src != '../images/empty.png') {
+	if (image.src.substr(-9, 9) != 'empty.png') {
 		if (image.style.opacity == 0.3) {
 			image.style.opacity = 1;
 			localStorage['itemsChecked'] = parseFloat(localStorage['itemsChecked']) + 1;
@@ -20,13 +20,6 @@ function toggle(image) {
 		bar.style.width = parseFloat(localStorage['itemsChecked']) / 3.65 + '%'
 		bar.innerHTML = '<h4>' + Math.ceil(parseFloat(localStorage['itemsChecked']) / 3.65) + '%</h4>' 
 	}
-}
-
-for (var x = 0; x < 19; x++) {
-	for (var y = 0; y < 34; y++) {
-		checklist.innerHTML += "<span class='checklistItem'><img class='checklistImage' src='../images/checklist" + x + "-" + y + ".png' onerror='imgError(this);' onclick='toggle(this);' style='opacity:0.3;'></span>"
-	}
-	checklist.innerHTML += "<br/>"
 }
 
 if (!localStorage['itemsChecked']) {

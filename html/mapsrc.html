@@ -1,0 +1,42 @@
+<html>
+	<head>
+		<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.1.1.min.js"></script>
+	    <script>
+	             $(function(){
+		  var curDown = false,
+		      curYPos = 0,
+		      curXPos = 0;
+		  $(window).mousemove(function(m){
+		    if(curDown === true){
+		     $(window).scrollTop($(window).scrollTop() + (curYPos - m.pageY)); 
+		     $(window).scrollLeft($(window).scrollLeft() + (curXPos - m.pageX));
+		    }
+		  });
+
+		  $(window).mousedown(function(m){
+		    curDown = true;
+		    curYPos = m.pageY;
+		    curXPos = m.pageX;
+		  });
+
+		  $(window).mouseup(function(){
+		    curDown = false;
+		  });
+		})
+		 
+	    </script>
+		<style>
+			body{
+			    -webkit-touch-callout: none;
+			    -webkit-user-select: none;
+			    -khtml-user-select: none;
+			    -moz-user-select: none;
+			    -ms-user-select: none;
+			    user-select: none;
+			}
+		</style>
+	</head>
+	<body onload="window.scroll(5400, 2400)">
+	  <img src="../images/map.jpg" draggable="false">
+	</body>
+</html>
